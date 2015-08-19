@@ -1,0 +1,22 @@
+<Command xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extension.xsd" Name="CWD" Language="Python">
+	<Subcommand Name="" IsArbitrary="False" Occurrence="Optional">
+		<Parameter Name="FH" ParameterType="QuotedString"/>
+		<Parameter Name="TYPE" ParameterType="Keyword">
+			<EnumValue Name="SYNTAX"/>
+			<EnumValue Name="DATA"/>
+		</Parameter>
+		<Parameter Name="CD" ParameterType="Keyword">
+			<EnumValue Name="YES"/>
+			<EnumValue Name="NO"/>
+			<EnumValue Name="TRUE"/>
+			<EnumValue Name="FALSE"/>
+		</Parameter>
+		<Parameter Name="MACRO" ParameterType="Keyword">
+			<EnumValue Name="YES"/>
+			<EnumValue Name="NO"/>
+			<EnumValue Name="TRUE"/>
+			<EnumValue Name="FALSE"/>
+		</Parameter>
+	</Subcommand>
+	<Subcommand Name="HELP" Occurrence="Optional"/>
+</Command>
