@@ -1,5 +1,6 @@
 import os.path
-import SpssClient, spss 
+import spss
+import SpssClient
 from extension import Template, Syntax, processcmd
 
 debug = False
@@ -11,12 +12,11 @@ __version__ = "1.0.1"
 
 def spssCwd(fh=None, theType=None, cd=None, macro=None):
     """ Get the path name of the designated data file or syntax file """
-    
+
     SpssClient.StartClient()
     path = "."
     try:
-        if fh is None:
-            fh = "syntaxdir"
+        fh = fh or "syntaxdir"
 
         if theType == "syntax" or theType is None:
             if SpssClient.GetDesignatedSyntaxDoc() is not None:
@@ -29,8 +29,8 @@ def spssCwd(fh=None, theType=None, cd=None, macro=None):
 
     if not path:
         path = os.path.abspath(".")
-        print "\nWarning # No path defined. This means that your %s has not been saved yet.\nUsing '%s'\n" % \
-              ("syntax file" if theType == "syntax" or theType is None else "data file", path)
+        print("\nWarning # No path defined. This means that your %s has not been saved yet.\nUsing '%s'\n" % \
+              ("syntax file" if theType == "syntax" or theType is None else "data file", path))
     else:
         path = os.path.dirname(path)
 
@@ -40,11 +40,12 @@ def spssCwd(fh=None, theType=None, cd=None, macro=None):
     if macro or macro is None:
         cmds.append("DEFINE !%s () '%s' !ENDDEFINE." % (fh, path))
     if debug:
-        print "\n".join(cmds)
+        print("\n".join(cmds))
     if path:
         spss.Submit(cmds)
 
     return path
+
 
 helptext = r"""CWD
 [FH=file_handle_name]
@@ -72,21 +73,21 @@ Such a macro is useful for embedding file paths in e.g. GET DATA connect strings
 
 """
 
+
 def Run(args):
         """Execute the CWD command"""
 
         args = args[args.keys()[0]]
-        ###print args   #debug
+        # print(args)  #debug
         oobj = Syntax([
-                Template("FH", subc="",  ktype="str", var="fh", islist=False),
-                Template("TYPE", subc="",  ktype="str", var="theType", islist=False),
-                Template("CD", subc="",  ktype="bool", var="cd", islist=False),
-                Template("MACRO", subc="",  ktype="bool", var="macro", islist=False),
+                Template("FH", subc="", ktype="str", var="fh", islist=False),
+                Template("TYPE", subc="", ktype="str", var="theType", islist=False),
+                Template("CD", subc="", ktype="bool", var="cd", islist=False),
+                Template("MACRO", subc="", ktype="bool", var="macro", islist=False),
                 Template("HELP", subc="", ktype="bool")])
 
         # A HELP subcommand overrides all else
-        if args.has_key("HELP"):
-                print helptext
+        if "HELP" in args:
+                print(helptext)
         else:
                 processcmd(oobj, args, spssCwd)
-    
