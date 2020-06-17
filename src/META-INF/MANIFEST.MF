@@ -1,13 +1,15 @@
 Name: CWD
 Command-Specs: CWD.xml
 Code-Files: CWD.py
-Misc-Files: CWD.png,readme.txt
+Misc-Files: CWD.png,Readme.md,readme.txt,LICENSE,default.png
 Summary: CWD - Current Working Directory.
 Description: CWD - Current Working Directory. Extension command to emu
  late the old SPSS behavior that the current working directory (cwd) i
  s equal to the syntax directory. In later SPSS versions, the cwd has 
  become the spss installation directory, which is pretty useless IMHO. 
 Author: Albert-Jan Roskam
-Version: 1.0.1
-Product-Version: 18
+Version: 2.0.0
+Product-Version: 24
+Product-Version-Maximum: 99
 Plugins: Python
+Python-Version: 3

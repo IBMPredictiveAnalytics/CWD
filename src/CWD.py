@@ -1,3 +1,14 @@
+#/***********************************************************************
+# * Licensed Materials - Property of IBM 
+# *
+# * IBM SPSS Products: Statistics Common
+# *
+# * (C) Copyright IBM Corp. 1989, 2020
+# *
+# * US Government Users Restricted Rights - Use, duplication or disclosure
+# * restricted by GSA ADP Schedule Contract with IBM Corp. 
+# ************************************************************************/
+
 import os.path
 import SpssClient, spss 
 from extension import Template, Syntax, processcmd
@@ -29,8 +40,8 @@ def spssCwd(fh=None, theType=None, cd=None, macro=None):
 
     if not path:
         path = os.path.abspath(".")
-        print "\nWarning # No path defined. This means that your %s has not been saved yet.\nUsing '%s'\n" % \
-              ("syntax file" if theType == "syntax" or theType is None else "data file", path)
+        print("\nWarning # No path defined. This means that your %s has not been saved yet.\nUsing '%s'\n" % \
+              ("syntax file" if theType == "syntax" or theType is None else "data file", path))
     else:
         path = os.path.dirname(path)
 
@@ -40,13 +51,14 @@ def spssCwd(fh=None, theType=None, cd=None, macro=None):
     if macro or macro is None:
         cmds.append("DEFINE !%s () '%s' !ENDDEFINE." % (fh, path))
     if debug:
-        print "\n".join(cmds)
+        print("\n".join(cmds))
     if path:
         spss.Submit(cmds)
 
     return path
 
 helptext = r"""CWD
+
 [FH=file_handle_name]
 [TYPE={DATA*|SYNTAX}]
 [CD={YES*|NO}]
@@ -75,7 +87,7 @@ Such a macro is useful for embedding file paths in e.g. GET DATA connect strings
 def Run(args):
         """Execute the CWD command"""
 
-        args = args[args.keys()[0]]
+        args = args[list(args.keys())[0]]
         ###print args   #debug
         oobj = Syntax([
                 Template("FH", subc="",  ktype="str", var="fh", islist=False),
@@ -85,8 +97,8 @@ def Run(args):
                 Template("HELP", subc="", ktype="bool")])
 
         # A HELP subcommand overrides all else
-        if args.has_key("HELP"):
-                print helptext
+        if "HELP" in args:
+                print(helptext)
         else:
                 processcmd(oobj, args, spssCwd)
     
