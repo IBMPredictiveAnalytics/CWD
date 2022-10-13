@@ -1,4 +1,5 @@
 Name: CWD
+Display-Name: Current Working Directory
 Command-Specs: CWD.xml
 Code-Files: CWD.py
 Misc-Files: CWD.png,Readme.md,readme.txt,LICENSE,default.png
